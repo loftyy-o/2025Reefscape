@@ -11,6 +11,7 @@ from wpimath.units import rotationsToRadians
 from generated.tuner_constants import TunerConstants
 from robot_state import RobotState
 from subsystems.superstructure import Superstructure
+from subsystems.climber import ClimberSubsystem
 
 
 class RobotContainer:
@@ -92,6 +93,9 @@ class RobotContainer:
         self._driver_controller.leftBumper().onTrue(
             self.drivetrain.runOnce(lambda: self.drivetrain.seed_field_centric())
         )
+        (self._driver_controller.y()).whileTrue(ClimberSubsystem._climb_positive()).onFalse(ClimberSubsystem._climb_stop())
+        
+        (self._driver_controller.x()).whileTrue(ClimberSubsystem._climb_negative()).onFalse(ClimberSubsystem._climb_stop())
 
         self.drivetrain.register_telemetry(
             lambda state: self._robot_state.log_swerve_state(state)
