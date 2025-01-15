@@ -18,8 +18,7 @@ class ClimberSubsystem(StateSubsystem):
         CLIMB_NEGATIVE = 3
 
     def __init__(self) -> None:
-        super().__init__()
-        self.setName("Climber")
+        super().__init__("Climber")
 
         self.climbMotor = TalonFX(_CLIMBMOTOR_ID)
         climbing_config = TalonFXConfiguration()

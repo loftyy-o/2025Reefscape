@@ -27,6 +27,7 @@ class RobotContainer:
         self._driver_controller = commands2.button.CommandXboxController(0)
 
         self.drivetrain = TunerConstants.create_drivetrain()
+        self.climber = ClimberSubsystem()
         self.superstructure = Superstructure(self.drivetrain)
         self._robot_state = RobotState(self.drivetrain)
 
@@ -93,9 +94,9 @@ class RobotContainer:
         self._driver_controller.leftBumper().onTrue(
             self.drivetrain.runOnce(lambda: self.drivetrain.seed_field_centric())
         )
-        self._driver_controller.y().whileTrue(ClimberSubsystem._climb_positive()).onFalse(ClimberSubsystem._climb_stop())
+        self._driver_controller.y().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
         
-        self._driver_controller.x().whileTrue(ClimberSubsystem._climb_negative()).onFalse(ClimberSubsystem._climb_stop())
+        self._driver_controller.x().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
 
         self.drivetrain.register_telemetry(
             lambda state: self._robot_state.log_swerve_state(state)
