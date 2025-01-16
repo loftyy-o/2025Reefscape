@@ -32,11 +32,21 @@ class RobotContainer:
         self._robot_state = RobotState(self.drivetrain)
 
         # Setting up bindings for necessary control of the swerve drive platform
-        self._drive = (
+        self._field_centric = (
             swerve.requests.FieldCentric()
-            .with_deadband(self._max_speed * 0.1)
+            .with_deadband(self._max_speed * 0.01)
             .with_rotational_deadband(
-                self._max_angular_rate * 0.1
+                self._max_angular_rate * 0.01
+            )  # Add a 10% deadband
+            .with_drive_request_type(
+                swerve.SwerveModule.DriveRequestType.OPEN_LOOP_VOLTAGE
+            )  # Use open-loop control for drive motors
+        )
+        self._robot_centric = (
+            swerve.requests.RobotCentric()
+            .with_deadband(self._max_speed * 0.01)
+            .with_rotational_deadband(
+                self._max_angular_rate * 0.01
             )  # Add a 10% deadband
             .with_drive_request_type(
                 swerve.SwerveModule.DriveRequestType.OPEN_LOOP_VOLTAGE
@@ -56,7 +66,7 @@ class RobotContainer:
         self.drivetrain.setDefaultCommand(
             self.drivetrain.apply_request(
                 lambda: (
-                    self._drive.with_velocity_x(
+                    self._field_centric.with_velocity_x(
                         -self._driver_controller.getLeftY() * self._max_speed
                     )
                     .with_velocity_y(
@@ -97,6 +107,22 @@ class RobotContainer:
         self._driver_controller.y().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
         
         self._driver_controller.x().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
+
+        self._driver_controller.rightBumper().whileTrue(
+            self.drivetrain.apply_request(
+                lambda: (
+                    self._robot_centric.with_velocity_x(
+                        -self._driver_controller.getLeftY() * self._max_speed
+                    )
+                    .with_velocity_y(
+                        -self._driver_controller.getLeftX() * self._max_speed
+                    )
+                    .with_rotational_rate(
+                        -self._driver_controller.getRightX() * self._max_angular_rate
+                    )
+                )
+            )
+        )
 
         self.drivetrain.register_telemetry(
             lambda state: self._robot_state.log_swerve_state(state)
