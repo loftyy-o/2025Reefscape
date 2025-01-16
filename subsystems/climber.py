@@ -36,8 +36,7 @@ class ClimberSubsystem(StateSubsystem):
                 self._climb_positive()
             case self.SubsystemState. CLIMB_NEGATIVE:
                 self._climb_negative()
-
-        #Not sure which output goes where so I made 2 differenct function of bot positive and negative output
+                
     def _climb_positive(self) -> None:
         self.climbMotor.set_control(DutyCycleOut(0.3))
 

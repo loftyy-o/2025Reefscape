@@ -25,6 +25,7 @@ class RobotContainer:
         )  # 3/4 of a rotation per second max angular velocity
 
         self._driver_controller = commands2.button.CommandXboxController(0)
+        self._function_controller = commands2.button.CommandXboxController(1)
 
         self.drivetrain = TunerConstants.create_drivetrain()
         self.climber = ClimberSubsystem()
@@ -94,9 +95,9 @@ class RobotContainer:
         self._driver_controller.leftBumper().onTrue(
             self.drivetrain.runOnce(lambda: self.drivetrain.seed_field_centric())
         )
-        self._driver_controller.y().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
+        self._function_controller.y().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
         
-        self._driver_controller.x().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
+        self._function_controller.x().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
 
         self.drivetrain.register_telemetry(
             lambda state: self._robot_state.log_swerve_state(state)
