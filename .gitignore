@@ -8,5 +8,8 @@ tests/ctre_sim/
 logs/*
 *.wpilog
 .DS_Store
-.DS_Store
 *.pyc
+=======
+__pycache__/
+/.wpilib/wpilib_preferences.json
+
