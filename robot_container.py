@@ -105,9 +105,15 @@ class RobotContainer:
         self._driver_controller.leftBumper().onTrue(
             self.drivetrain.runOnce(lambda: self.drivetrain.seed_field_centric())
         )
-        self._function_controller.y().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
+        self._function_controller.y().whileTrue(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
+        )
         
-        self._function_controller.x().whileTrue(self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(self.climber.set_desired_state_command(self.climber.SubsystemState.STOP))
+        self._function_controller.x().whileTrue(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
+        )
 
         self._driver_controller.rightBumper().whileTrue(
             self.drivetrain.apply_request(

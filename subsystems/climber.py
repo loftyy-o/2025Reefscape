@@ -36,15 +36,15 @@ class ClimberSubsystem(StateSubsystem):
                 self._climb_positive()
             case self.SubsystemState. CLIMB_NEGATIVE:
                 self._climb_negative()
-                
+
     def _climb_positive(self) -> None:
-        self.climbMotor.set_control(DutyCycleOut(0.3))
+        self.climbMotor.set_control(DutyCycleOut(0.5))
 
     def _climb_stop(self) -> None:
         self.climbMotor.set_control(DutyCycleOut(0))
 
     def _climb_negative(self) -> None:
-         self.climbMotor.set_control(DutyCycleOut(-0.3))
+         self.climbMotor.set_control(DutyCycleOut(-0.5))
 
 
 
