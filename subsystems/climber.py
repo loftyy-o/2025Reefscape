@@ -34,7 +34,7 @@ class ClimberSubsystem(StateSubsystem):
                 self._climb_stop()
             case self.SubsystemState.CLIMB_POSITIVE:
                 self._climb_positive()
-            case self.SubsystemState. CLIMB_NEGATIVE:
+            case self.SubsystemState.CLIMB_NEGATIVE:
                 self._climb_negative()
 
     def _climb_positive(self) -> None:
