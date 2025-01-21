@@ -45,10 +45,3 @@ class ClimberSubsystem(StateSubsystem):
 
     def _climb_negative(self) -> None:
          self.climbMotor.set_control(DutyCycleOut(-0.5))
-
-
-
-
-
-
-
