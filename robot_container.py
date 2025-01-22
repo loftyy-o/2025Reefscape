@@ -3,6 +3,7 @@ import commands2.button
 import commands2.cmd
 from commands2.sysid import SysIdRoutine
 from pathplannerlib.auto import AutoBuilder
+from pathplannerlib.path import PathConstraints, PathPlannerPath
 from phoenix6 import SignalLogger, swerve
 from wpilib import DriverStation, SmartDashboard
 from wpimath.geometry import Rotation2d
@@ -26,6 +27,8 @@ class RobotContainer:
 
         self._driver_controller = commands2.button.CommandXboxController(0)
         self._function_controller = commands2.button.CommandXboxController(1)
+        self.path_constraints = PathConstraints(1, 1, 1, 1, unlimited=False)
+        self.trigger_margin = .75
 
         self.drivetrain = TunerConstants.create_drivetrain()
         self.climber = ClimberSubsystem()
@@ -105,15 +108,66 @@ class RobotContainer:
         self._driver_controller.leftBumper().onTrue(
             self.drivetrain.runOnce(lambda: self.drivetrain.seed_field_centric())
         )
-        self._function_controller.y().whileTrue(
-            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(
-            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
-        )
+
+        path_state = "DEFAULT"
+        if self._driver_controller.getLeftTriggerAxis() >= self.trigger_margin and self._driver_controller.getRightTriggerAxis() >= self.trigger_margin:
+            path_state = "CORALSTATION"
+        elif self._driver_controller.getLeftTriggerAxis() >= self.trigger_margin:
+            path_state = "LEFT"
+        elif self._driver_controller.getRightTriggerAxis() >= self.trigger_margin:
+            path_state = "RIGHT"
+
+
+        match path_state:
+            case "LEFT":
+                self._driver_controller.y().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral A"), self.path_constraints)
+                )
+                self._driver_controller.x().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral C"), self.path_constraints)
+                )
+                self._driver_controller.a().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral E"), self.path_constraints)
+                )
+                self._driver_controller.b().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral G"), self.path_constraints)
+                )
+                self._driver_controller.rightBumper().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral I"), self.path_constraints)
+                )
+                self._driver_controller.leftBumper().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral K"), self.path_constraints)
+                )
+            case "RIGHT":
+                self._driver_controller.y().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral B"), self.path_constraints)
+                )
+                self._driver_controller.x().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral D"), self.path_constraints)
+                )
+                self._driver_controller.a().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral F"), self.path_constraints)
+                )
+                self._driver_controller.b().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral H"), self.path_constraints)
+                )
+                self._driver_controller.b().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral J"), self.path_constraints)
+                )
+                self._driver_controller.leftBumper().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral L"), self.path_constraints)
+                )
+            case "CORALSTATION":
+                self._driver_controller.leftBumper().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral Station 1"), self.path_constraints)
+                )
+                self._driver_controller.rightBumper().whileTrue(
+                    AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Coral Station 2"), self.path_constraints)
+                )
+            case _:
+                pass
+
         
-        self._function_controller.x().whileTrue(
-            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(
-            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
-        )
 
         self._driver_controller.rightBumper().whileTrue(
             self.drivetrain.apply_request(
@@ -130,7 +184,15 @@ class RobotContainer:
                 )
             )
         )
-
+        self._function_controller.y().whileTrue(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_POSITIVE)).onFalse(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
+        )
+        
+        self._function_controller.x().whileTrue(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.CLIMB_NEGATIVE)).onFalse(
+            self.climber.set_desired_state_command(self.climber.SubsystemState.STOP)
+        )
         self.drivetrain.register_telemetry(
             lambda state: self._robot_state.log_swerve_state(state)
         )
