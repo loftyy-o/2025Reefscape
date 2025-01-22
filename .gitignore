@@ -11,5 +11,6 @@ logs/*
 *.pyc
 =======
 __pycache__/
+WPILibNewCommands.json
 /.wpilib/wpilib_preferences.json
 

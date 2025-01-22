@@ -12,7 +12,10 @@ from wpimath.units import rotationsToRadians
 from generated.tuner_constants import TunerConstants
 from robot_state import RobotState
 from subsystems.superstructure import Superstructure
+
 from subsystems.climber import ClimberSubsystem
+from subsystems.pivot import Pivot
+from subsystems.intake import Intake
 
 
 class RobotContainer:
@@ -31,8 +34,15 @@ class RobotContainer:
         self.trigger_margin = .75
 
         self.drivetrain = TunerConstants.create_drivetrain()
+
         self.climber = ClimberSubsystem()
         self.superstructure = Superstructure(self.drivetrain)
+
+        self.pivot = Pivot()
+        self.intake = Intake()
+
+        self.superstructure = Superstructure(self.drivetrain, self.pivot)
+
         self._robot_state = RobotState(self.drivetrain)
 
         # Setting up bindings for necessary control of the swerve drive platform
