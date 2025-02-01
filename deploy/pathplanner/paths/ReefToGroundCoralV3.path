@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.569262295081967,
-        "y": 3.8511782786885242
+        "x": 5.333515956038135,
+        "y": 5.093455789856992
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.196681005871413,
-        "y": 3.8495618558330635
+        "x": 4.325662977430555,
+        "y": 5.922375217013889
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefEnd"
     },
     {
       "anchor": {
-        "x": 5.849999999999999,
-        "y": 3.8511782786885242
+        "x": 1.6009165618379237,
+        "y": 5.870650986493644
       },
       "prevControl": {
-        "x": 6.104019026758815,
-        "y": 3.847892756198504
+        "x": 3.0299777091462037,
+        "y": 5.870650986493644
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GroundCoral1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.24933182565789466,
+      "rotationDegrees": -106.00761157937599
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -45,10 +50,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "driving autos",
+  "folder": "Level 3 Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -119.99999999999999
   },
   "useDefaultConstraints": true
 }

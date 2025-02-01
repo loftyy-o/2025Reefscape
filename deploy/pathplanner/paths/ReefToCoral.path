@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.569262295081967,
-        "y": 3.8511782786885242
+        "x": 3.6846692101430083,
+        "y": 5.110739704713983
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.196681005871413,
-        "y": 3.8495618558330635
+        "x": 2.6544059730471377,
+        "y": 4.661394167422349
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "2CoralAutoEnd"
     },
     {
       "anchor": {
-        "x": 5.849999999999999,
-        "y": 3.8511782786885242
+        "x": 1.648072116657839,
+        "y": 4.025532557600636
       },
       "prevControl": {
-        "x": 6.104019026758815,
-        "y": 3.847892756198504
+        "x": 2.6516036787251736,
+        "y": 4.099808443206328
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GroundCoral2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.19853329809725154,
+      "rotationDegrees": -59.99999999999999
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -45,10 +50,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "driving autos",
+  "folder": "Level 3 Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true
 }
