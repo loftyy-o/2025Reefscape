@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.333515956038135,
-        "y": 5.093455789856992
+        "x": 5.308270760995369,
+        "y": 5.073002387152778
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.428749006885593,
-        "y": 6.119161728681144
+        "x": 4.4035038118428265,
+        "y": 6.098708325976928
       },
       "isLocked": false,
       "linkedName": "ReefEnd"
@@ -47,19 +47,19 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 4.73,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 720.0,
+    "maxAngularAcceleration": 450.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Level 2 Auto",
+  "folder": "(GC) Level 2 Auto",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.99999999999999

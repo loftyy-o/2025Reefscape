@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.333515956038135,
-        "y": 5.093455789856992
+        "x": 5.308270760995369,
+        "y": 5.073002387152778
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.540586103019067,
-        "y": 6.367672470868643
+        "x": 4.515340907976301,
+        "y": 6.3472190681644305
       },
       "isLocked": false,
       "linkedName": "ReefEnd"
@@ -29,37 +29,23 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.814344067258883,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 0.5,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 4.73,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 720.0,
+    "maxAngularAcceleration": 450.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 178.26951156595067
   },
   "reversed": false,
-  "folder": "Level 1 Auto",
+  "folder": "(GC) Level 1 Auto",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.99999999999999
